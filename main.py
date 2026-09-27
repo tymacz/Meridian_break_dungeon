@@ -1,40 +1,24 @@
-class Thief:
-    def __init__(self):
-        self.name = "Thief"
-        self.speed = 100
-        self.pv = 20
-        self.attack = 50
-        self.defense = 10
-
-
-class Mage:
-    def __init__(self):
-        self.name = "Mage"
-        self.speed = 100
-        self.pv = 20
-        self.attack = 50
-        self.defense = 10
-
-
-class Personnage:
-    def __init__(self, n, c):
-        super().__init__()
-        self.name = n
-        self.classe = c
-        self.level = 1
-        self.exp = 0
-
-    def __str__(self):
-        return f"Hi, I'am {self.name}, my classe is {self.classe.name} and I'am level : {self.level}"
-
+from Personnages import Personnage
+from Items import Arme, Potion
+from Roles import Thief, Mage
+from Moteur import GameEngine
+from IA import ComportementPrudent  
 
 if __name__ == "__main__":
-    name = input("What's your name ? : ")
-    choice = input("Choisissez votre classe (thief/mage) : ")
-    if choice == "thief":
-        classe = Thief()
+    # 1. Création des combattants
+    joueur = Personnage("Maxence", Thief())
+    boss = Personnage("Seigneur Démon", Mage())
+    boss.role.pv = 80
+    joueur.role.pv = 100
+    boss.ia = ComportementPrudent()
 
-    elif choice == "mage":
-        classe = Mage()
-    p1 = Personnage(name, classe)
-    print(p1)
+    # 2. Préparation de l'inventaire du joueur
+    epee = Arme(nom="Dague Empoisonnée", poids=2.0, valeur=100, degats_bonus=25)
+    potion = Potion(nom="Potion de Soin Majeure", poids=0.5, valeur=50, soin=50)
+
+    joueur.inventaire.ajouter(epee)
+    joueur.inventaire.ajouter(potion)
+
+    # 3. Lancement du moteur de jeu
+    moteur = GameEngine(joueur=joueur, ennemi=boss)
+    moteur.lancer_combat()
