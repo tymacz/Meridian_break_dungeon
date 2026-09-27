@@ -1,0 +1,14 @@
+{
+    "name": "Tymacz",
+    "level": 6,
+    "exp": 500,
+    "money": 150,
+    "role": {
+        "speed": 120,
+        "pv": 200,
+        "attack": 65,
+        "defense": 20,
+        "type": "Thief"
+    },
+    "inventaire": []
+}
